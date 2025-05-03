@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const fundsButton = document.getElementById('funds-button');
     const eventsButton = document.getElementById('events-button');
     const reviewsButton = document.getElementById('reviews-button');
+    const signOutButton = document.getElementById('sign-out-button');
 
     const homeSection = document.getElementById('home-section');
     const profileSection = document.getElementById('profile-section');
@@ -85,6 +86,35 @@ document.addEventListener('DOMContentLoaded', function() {
     reviewsButton.addEventListener('click', function(e) {
         e.preventDefault();
         showSection(reviewsSection, reviewsButton);
+    });
+
+    // Handle sign-out button
+    signOutButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Import Firebase auth and sign out the user
+        import("https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js")
+            .then((module) => {
+                const { getAuth, signOut } = module;
+                const auth = getAuth();
+                
+                signOut(auth).then(() => {
+                    // Clear any locally stored user data
+                    localStorage.removeItem('loggedInUserId');
+                    
+                    // Redirect to login page
+                    window.location.href = '../LoginSignup/loginSignup.html';
+                }).catch((error) => {
+                    console.error("Sign-out error:", error);
+                    // If sign-out fails, still redirect to login page
+                    window.location.href = '../LoginSignup/loginSignup.html';
+                });
+            })
+            .catch(error => {
+                console.error("Error importing Firebase auth:", error);
+                // If import fails, still redirect to login page
+                window.location.href = '../LoginSignup/loginSignup.html';
+            });
     });
 
     // Initialize the page
