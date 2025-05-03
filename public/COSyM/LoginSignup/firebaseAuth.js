@@ -1,4 +1,4 @@
-  // Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
   import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup} 
   from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
@@ -48,9 +48,9 @@ signUp.addEventListener('click', (event)=>{ // When clicked:
     const user = userCredential.user;
     const userData = { // Prepare user data to save
       profilePicture: user.photoURL || '',
-      firstName: user.displayName?.split(' ')[0] || '', // Extract first name
-      middleName:'',
-      lastName: user.displayName?.split(' ')[1] || '',  // Extract last name
+      firstName: firstName, // Use the values from the form input fields
+      middleName: '',
+      lastName: lastName, // Use the values from the form input fields
       course: "", // Initialize empty fields
       year: "",
       role: "",
@@ -58,7 +58,7 @@ signUp.addEventListener('click', (event)=>{ // When clicked:
       createdAt: new Date(),
       updatedAt: new Date(),
       profileComplete: false,
-      provider: 'google' // Track sign-in method
+      provider: 'email' // Track sign-in method as email
     };
     showMessage('Account Created!', 'signUpMessage'); 
     
